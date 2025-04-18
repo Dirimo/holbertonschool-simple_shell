@@ -1,9 +1,8 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * print_prompt - Displays the shell prompt.
+ * display_prompt - Affiche l'invite du shell.
  */
-void print_prompt(void)
-{
-	write(STDOUT_FILENO, "#cisfun$ ", 9);
+void display_prompt(void) {
+    write(STDOUT_FILENO, PROMPT, strlen(PROMPT));
 }
