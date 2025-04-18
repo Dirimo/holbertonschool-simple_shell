@@ -5,34 +5,28 @@
  * @command: command name (e.g., ls)
  * Return: full path if found, NULL otherwise
  */
-char *find_command(char *command)
+char *_path(char *str)
 {
-	char *path = getenv("PATH");
-	char *token, *full_path;
 	struct stat st;
+	int i;
+	char *path = _getenv("PATH");
+	char **tab_path = split_env(path);
+	char *newpath = malloc(sizeof(char) *1024);
 
-	if (!path)
-		return (NULL);
-
-	path = strdup(path);
-	token = strtok(path, ":");
-	while (token)
+	if (newpath == NULL)
 	{
-		full_path = malloc(strlen(token) + strlen(command) + 2);
-		if (!full_path)
-			return (NULL);
-
-		sprintf(full_path, "%s/%s", token, command);
-
-		if (stat(full_path, &st) == 0)
-		{
-			free(path);
-			return (full_path);
-		}
-
-		free(full_path);
-		token = strtok(NULL, ":");
+		perror("Failed malloc");
+		return (NULL);
 	}
-	free(path);
+	for (i = 0; tab_path[i] != NULL; i++)
+	{
+		newpath[0] = 0;
+		_strcat(newpath, tab_path[i]);
+		_strcat(newpath, "/");
+		_strcat(newpath, str);
+		if(stat(newpath,&st) == 0)
+			return(newpath);
+	}
+	free(newpath);
 	return (NULL);
 }

@@ -16,4 +16,12 @@ char **tokenize_input(char *line);
 void execute_command(char **args);
 void handle_input(char *line);
 char *find_command(char *command);
+
+/** functions_str */
+char *_strdup(char *str);
+char *_strcat(char *dest, char *src);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
+
 #endif
