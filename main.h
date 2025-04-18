@@ -12,9 +12,8 @@
 extern char **environ;
 
 /* Function prototypes */
-void print_prompt(void);
+char **tokenize_input(char *line);
+void execute_command(char **args);
 void handle_input(char *line);
-void execute_command(char *line);
 char *find_command(char *command);
-
 #endif

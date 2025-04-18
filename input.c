@@ -6,8 +6,14 @@
  */
 void handle_input(char *line)
 {
+	char **args;
 	if (line[strlen(line) - 1] == '\n')
 		line[strlen(line) - 1] = '\0';
 
-	execute_command(line);
+	args = tokenize_input(line);
+	if (args[0] != NULL)
+
+	execute_command(args);
+	
+	free(args);
 }
