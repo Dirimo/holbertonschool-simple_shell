@@ -3,15 +3,16 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdio.h>
 #include "shell.h"
 
 extern char **environ;
 
-void start_shell() {
+void start_shell(void) {
     char command[1024];
     char *args[100];
     pid_t pid;
-
+    int i;	
     while (1) {
         write(STDOUT_FILENO, "$ ", 2);
         if (fgets(command, sizeof(command), stdin) == NULL) {
@@ -23,7 +24,7 @@ void start_shell() {
             continue;
         }
         args[0] = strtok(command, " ");
-        int i = 1;
+        i = 1;
         while ((args[i] = strtok(NULL, " ")) != NULL) {
             i++;
         }

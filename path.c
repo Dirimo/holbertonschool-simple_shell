@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "shell.h"
 
 char *get_absolute_path(char *command) {
