@@ -5,13 +5,21 @@
 #include <sys/wait.h>
 #include <errno.h>
 
-
 void execute_command(char **args, char *program_name)
 {
     pid_t pid;
     int status;
+    char *command_path;
 
-    char *command_path = get_full_path(args[0]);
+    if (args[0][0] == '/' || args[0][0] == '.')
+    {
+        command_path = _strdup(args[0]);
+    }
+    else
+    {
+        command_path = get_full_path(args[0]);
+    }
+
     if (!command_path)
     {
         write(STDERR_FILENO, program_name, _strlen(program_name));
@@ -29,6 +37,11 @@ void execute_command(char **args, char *program_name)
     else if (pid > 0)
     {
         wait(&status);
+    }
+    else
+    {
+        perror("fork");
+        exit(EXIT_FAILURE);
     }
 
     free(command_path);
