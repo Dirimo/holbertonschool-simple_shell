@@ -1,17 +1,40 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "shell.h"
 
-char **tokenize(char *command) {
-    char **tokens = malloc(100 * sizeof(char*));
+char **tokenize_line(char *line)
+{
+    char **args = NULL;
     char *token;
     int i = 0;
+    char **temp;
 
-    token = strtok(command, " ");
-    while (token != NULL) {
-        tokens[i++] = token;
+    token = strtok(line, " ");
+    while (token != NULL)
+    {
+        temp = realloc(args, sizeof(char *) * (i + 1));
+        if (!temp)
+        {
+            free(args);
+            return NULL;
+        }
+
+        args = temp;
+        args[i] = strdup(token);
+        i++;
+
         token = strtok(NULL, " ");
     }
-    tokens[i] = NULL;
-    return tokens;
+
+    temp = realloc(args, sizeof(char *) * (i + 1));
+    if (!temp)
+    {
+        free(args);
+        return NULL;
+    }
+
+    args = temp;
+    args[i] = NULL;
+
+    return args;
 }
