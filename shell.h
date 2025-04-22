@@ -30,6 +30,10 @@ char **tokenize_line(char *line);
 /* ==== PROMPT ==== */
 void display_prompt(void);
 
+/* ==== EXIT ==== */
+
+int exit_shell(void);
+
 /* ==== UTILS ==== */
 int _strcmp(char *s1, char *s2);
 char *_strdup(char *s);
