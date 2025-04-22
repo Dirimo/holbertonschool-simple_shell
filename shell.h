@@ -34,5 +34,8 @@ void display_prompt(void);
 int _strcmp(char *s1, char *s2);
 char *_strdup(char *s);
 int _strlen(char *s);
+char *_strcpy(char *dest, const char *src);
+char *_strcat(char *dest, const char *src);
+
 
 #endif /* SHELL_H */
