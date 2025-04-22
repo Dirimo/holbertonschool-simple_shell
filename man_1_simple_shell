@@ -1,0 +1,48 @@
+The Gates of shell
+
+
+SYNOPSIS
+UNIX command interpreter
+
+DESCRIPTION
+The projet is a simple shell that interprets and executes commands entered by the user or read from a script. It provides basic shell functionalities such as command execution, built-in commands, path resolution, and prompt display.
+
+FILES
+_exit.c
+    Implements the exit functionality for the shell. Handles the cleanup and termination of the shell process.
+
+builtin.c
+    Contains implementations for built-in commands, such as cd, help, and exit. These commands are executed directly by the shell without creating new processes.
+
+execute.c
+    Handles the execution of external commands. This file includes functions to search for commands in the file system, create child processes, and execute the commands.
+
+hsh
+    The main executable file for the shell. This file contains the entry point for the shell program.
+
+main.c
+    Contains the main function that initializes the shell, enters the main loop to read and execute commands, and performs cleanup upon exit.
+
+path.c
+    Manages the PATH environment variable and provides functions to search for executable files in the directories specified in the PATH.
+
+prompt.c
+    Handles the display of the shell prompt. It includes functions to construct and display the prompt, which typically includes the current directory and other relevant information.
+
+shell.h
+    Header file containing definitions, structures, and function prototypes used throughout the shell project. It serves as a central point for declarations shared among the different source files.
+
+tokenize.c
+    Implements the tokenization of input commands. It includes functions to parse the command line into individual tokens, which are then interpreted and executed by the shell.
+
+utils.c
+    Contains utility functions used by various parts of the shell, such as string manipulation, memory allocation, and error handling.
+
+
+AUTHOR
+
+Latifa El Gari
+
+Nomen Ratsimba
+
+Dirimo Iriarte
