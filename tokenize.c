@@ -7,34 +7,41 @@ char **tokenize_line(char *line)
     char **args = NULL;
     char *token;
     int i = 0;
-    char **temp;
+    int j;
+    char **new_args;
 
     token = strtok(line, " ");
     while (token != NULL)
     {
-        temp = realloc(args, sizeof(char *) * (i + 1));
-        if (!temp)
+        new_args = malloc(sizeof(char *) * (i + 2));
+        if (!new_args)
         {
+            for (j = 0; j < i; j++)
+                free(args[j]);
             free(args);
             return NULL;
         }
 
-        args = temp;
-        args[i] = strdup(token);
+        for (j = 0; j < i; j++)
+            new_args[j] = args[j];
+
+        new_args[i] = strdup(token);
+        if (!new_args[i])
+        {
+            for (j = 0; j < i; j++)
+                free(new_args[j]);
+            free(new_args);
+            free(args);
+            return NULL;
+        }
+
+        new_args[i + 1] = NULL;
+        free(args);
+        args = new_args;
         i++;
 
         token = strtok(NULL, " ");
     }
-
-    temp = realloc(args, sizeof(char *) * (i + 1));
-    if (!temp)
-    {
-        free(args);
-        return NULL;
-    }
-
-    args = temp;
-    args[i] = NULL;
 
     return args;
 }
