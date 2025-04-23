@@ -29,7 +29,7 @@ char *get_full_path(char *command)
 		_strcat(full_path, "/");
 		_strcat(full_path, command);
 
-		if (stat(full_path, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
+		if (stat(full_path, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR)) 
 		{
 			free(path_copy);
 			return full_path;
