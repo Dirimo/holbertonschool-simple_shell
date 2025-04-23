@@ -2,43 +2,35 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-char *get_full_path(char *command)
+/**
+ * path_ - find the path
+ * @str: find the path
+ *
+ * Return : the path
+ */
+char* path(char *str)
 {
-    char *path, *path_copy, *dir, *full_path;
-    struct stat st;
+	struct stat st;
+	int i;
+	char *path = _getenv("PATH");
+	char **tab_path = split_env(path);
+	char *newpath = malloc(sizeof(char) *1024);
 
-    path = getenv("PATH");
-    if (!path)
-        return NULL;
+	if (newpath = NULL)
+	{
+		perror("Failed malloc");
+		return (NULL);
+	}
 
-    path_copy = _strdup(path);
-    if (!path_copy)
-        return NULL;
-
-    dir = strtok(path_copy, ":");
-    while (dir != NULL)
-    {
-        full_path = malloc(_strlen(dir) + _strlen(command) + 2);
-        if (!full_path)
-        {
-            free(path_copy);
-            return NULL;
-        }
-
-        _strcpy(full_path, dir);
-        _strcat(full_path, "/");
-        _strcat(full_path, command);
-
-        if (stat(full_path, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
-        {
-            free(path_copy);
-            return full_path;
-        }
-
-        free(full_path);
-        dir = strtok(NULL, ":");
-    }
-
-    free(path_copy);
-    return NULL;
+	for (i = 0; tab_path[i] != NULL; i++)
+	{
+		newpath[0] = 0;
+		_strcat(newpath, tab_path[i]);
+		_strcat(newpath, "/");
+		_strcat(newpath, str);
+		if (stat(newpath, &st) == 0)
+			return(newpath);
+	}
+	free(newpath);
+	return (NULL);
 }
